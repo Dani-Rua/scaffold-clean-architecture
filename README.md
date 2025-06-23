@@ -92,6 +92,11 @@ Este diagrama muestra los principales componentes internos de la aplicación y c
 El proyecto está organizado siguiendo los principios de Clean Architecture y una estructura multi-módulo con Gradle.
 A continuación se describe la estructura principal de carpetas y módulos:
 
+
+
+
+
+
 prueba-bancolombia/
 ├── applications/
 │   └── app-service/           # Módulo principal de la aplicación (Spring Boot)
@@ -110,6 +115,26 @@ prueba-bancolombia/
 ├── build.gradle               # Configuración raíz de Gradle
 ├── settings.gradle            # Configuración de módulos de Gradle
 └── README.md                  # Documentación principal del proyecto
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ### Principales módulos:
