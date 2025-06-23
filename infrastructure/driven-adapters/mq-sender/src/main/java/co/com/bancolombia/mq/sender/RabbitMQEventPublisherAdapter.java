@@ -38,6 +38,10 @@ public class RabbitMQEventPublisherAdapter implements EventPublisherGateway/* im
     @Value("${app.rabbitmq.routing-key.stats}")
     private String statsRoutingKey;
 
+    /**
+     * Crea el exchange de RabbitMQ si no existe.
+     * Se ejecuta después de la construcción del bean.
+     */
     @PostConstruct
     public void createExchangeIfNotExists() {
         try {

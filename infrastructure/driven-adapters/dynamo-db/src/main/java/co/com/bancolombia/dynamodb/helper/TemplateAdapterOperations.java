@@ -17,6 +17,16 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.function.Function;
 
+/**
+ * Clase abstracta que centraliza operaciones genéricas de persistencia y consulta en DynamoDB.
+ *
+ * <p>Provee métodos para guardar, obtener, eliminar y consultar entidades de forma reactiva,
+ * utilizando el cliente asíncrono mejorado de DynamoDB y un mapper para conversión de modelos.</p>
+ *
+ * @param <E> Tipo de entidad de dominio
+ * @param <K> Tipo de clave primaria
+ * @param <V> Tipo de entidad de base de datos (adaptador)
+ */
 public abstract class TemplateAdapterOperations<E, K, V> {
     private final Class<V> dataClass;
     private final Function<V, E> toEntityFn;
@@ -38,11 +48,22 @@ public abstract class TemplateAdapterOperations<E, K, V> {
         tableByIndex = index.length > 0 ? table.index(index[0]) : null;
     }
 
-    //TODO: Estudiar lo de fromFuture
+    /**
+     * Guarda una entidad en la tabla DynamoDB.
+     *
+     * @param model Entidad de dominio a guardar
+     * @return Mono que emite la entidad guardada
+     */
     public Mono<E> save(E model) {
         return Mono.fromFuture(table.putItem(toEntity(model))).thenReturn(model);
     }
 
+    /**
+     * Obtiene una entidad por su clave primaria.
+     *
+     * @param id Clave primaria de la entidad
+     * @return Mono que emite la entidad encontrada o vacío si no existe
+     */
     public Mono<E> getById(K id) {
         return Mono.fromFuture(table.getItem(Key.builder()
                         .partitionValue(AttributeValue.builder().s((String) id).build())
@@ -50,15 +71,34 @@ public abstract class TemplateAdapterOperations<E, K, V> {
                 .map(this::toModel);
     }
 
+    /**
+     * Elimina una entidad de la tabla DynamoDB.
+     *
+     * @param model Entidad de dominio a eliminar
+     * @return Mono que emite la entidad eliminada
+     */
     public Mono<E> delete(E model) {
         return Mono.fromFuture(table.deleteItem(toEntity(model))).map(this::toModel);
     }
 
+    /**
+     * Realiza una consulta sobre la tabla DynamoDB usando una expresión de consulta.
+     *
+     * @param queryExpression Expresión de consulta
+     * @return Mono que emite la lista de entidades encontradas
+     */
     public Mono<List<E>> query(QueryEnhancedRequest queryExpression) {
         PagePublisher<V> pagePublisher = table.query(queryExpression);
         return listOfModel(pagePublisher);
     }
 
+    /**
+     * Realiza una consulta sobre un índice secundario de la tabla DynamoDB.
+     *
+     * @param queryExpression Expresión de consulta
+     * @param index Nombre(s) del índice secundario
+     * @return Mono que emite la lista de entidades encontradas
+     */
     public Mono<List<E>> queryByIndex(QueryEnhancedRequest queryExpression, String... index) {
         DynamoDbAsyncIndex<V> queryIndex = index.length > 0 ? table.index(index[0]) : tableByIndex;
 

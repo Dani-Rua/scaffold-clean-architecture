@@ -6,8 +6,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.*;
 
-import java.time.LocalDateTime;
 
+/**
+ * Entidad de persistencia para DynamoDB que representa las estadísticas de contacto de clientes.
+ *
+ * <p>Mapea los campos del modelo de dominio {@link co.com.bancolombia.model.stats.Stats} a la tabla <b>stats-table</b> en DynamoDB.</p>
+ *
+ * <p>Utiliza anotaciones de AWS SDK para definir el mapeo de atributos y la clave primaria.</p>
+ */
 @Getter
 @Setter
 @AllArgsConstructor
@@ -25,92 +31,14 @@ public class StatsEntity {
     private int motivoCambio;
     private String hash;
 
-//    public StatsEntity() {
-//    }
-//
-//    public StatsEntity(LocalDateTime timestamp, int totalContactoClientes, int motivoReclamo, int motivoGarantia, int motivoDuda, int motivoCompra, int motivoFelicitaciones, int motivoCambio, String hash) {
-//        this.timestamp = timestamp;
-//        this.totalContactoClientes = totalContactoClientes;
-//        this.motivoReclamo = motivoReclamo;
-//        this.motivoGarantia = motivoGarantia;
-//        this.motivoDuda = motivoDuda;
-//        this.motivoCompra = motivoCompra;
-//        this.motivoFelicitaciones = motivoFelicitaciones;
-//        this.motivoCambio = motivoCambio;
-//        this.hash = hash;
-//    }
-
+    /**
+     * Obtiene el valor del atributo timestamp, que actúa como clave primaria en DynamoDB.
+     *
+     * @return Timestamp como string (clave primaria)
+     */
     @DynamoDbPartitionKey
     @DynamoDbAttribute("timestamp")
     public String getTimestamp() {
         return timestamp;
     }
-
-//    public void setTimestamp(LocalDateTime timestamp) {
-//        this.timestamp = timestamp;
-//    }
-//
-//    public int getTotalContactoClientes() {
-//        return totalContactoClientes;
-//    }
-//
-//    public void setTotalContactoClientes(int totalContactoClientes) {
-//        this.totalContactoClientes = totalContactoClientes;
-//    }
-//
-//    public int getMotivoReclamo() {
-//        return motivoReclamo;
-//    }
-//
-//    public void setMotivoReclamo(int motivoReclamo) {
-//        this.motivoReclamo = motivoReclamo;
-//    }
-//
-//    public int getMotivoGarantia() {
-//        return motivoGarantia;
-//    }
-//
-//    public void setMotivoGarantia(int motivoGarantia) {
-//        this.motivoGarantia = motivoGarantia;
-//    }
-//
-//    public int getMotivoDuda() {
-//        return motivoDuda;
-//    }
-//
-//    public void setMotivoDuda(int motivoDuda) {
-//        this.motivoDuda = motivoDuda;
-//    }
-//
-//    public int getMotivoCompra() {
-//        return motivoCompra;
-//    }
-//
-//    public void setMotivoCompra(int motivoCompra) {
-//        this.motivoCompra = motivoCompra;
-//    }
-//
-//    public int getMotivoFelicitaciones() {
-//        return motivoFelicitaciones;
-//    }
-//
-//    public void setMotivoFelicitaciones(int motivoFelicitaciones) {
-//        this.motivoFelicitaciones = motivoFelicitaciones;
-//    }
-//
-//    public int getMotivoCambio() {
-//        return motivoCambio;
-//    }
-//
-//    public void setMotivoCambio(int motivoCambio) {
-//        this.motivoCambio = motivoCambio;
-//    }
-//
-//    public String getHash() {
-//        return hash;
-//    }
-//
-//    public void setHash(String hash) {
-//        this.hash = hash;
-//    }
 }
