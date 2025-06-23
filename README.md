@@ -93,48 +93,7 @@ El proyecto está organizado siguiendo los principios de Clean Architecture y un
 A continuación se describe la estructura principal de carpetas y módulos:
 
 
-
-
-
-
-prueba-bancolombia/
-├── applications/
-│   └── app-service/           # Módulo principal de la aplicación (Spring Boot)
-├── domain/
-│   ├── model/                 # Entidades y modelos de dominio
-│   └── usecase/               # Casos de uso (lógica de aplicación)
-├── infrastructure/
-│   ├── driven-adapters/
-│   │   ├── dynamo-db/         # Adaptador para DynamoDB
-│   │   └── mq-sender/         # Adaptador para RabbitMQ
-│   └── entry-points/
-│       └── reactive-web/      # API REST (WebFlux)
-├── deployment/
-│   └── Dockerfile             # Dockerfile para construir la imagen de la app
-├── docker-compose.yml         # Orquestación de servicios (app, RabbitMQ, DynamoDB)
-├── build.gradle               # Configuración raíz de Gradle
-├── settings.gradle            # Configuración de módulos de Gradle
-└── README.md                  # Documentación principal del proyecto
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+![image](https://github.com/user-attachments/assets/c8d7d229-ab38-44cb-bad3-b8bf54012bd6)
 
 
 ### Principales módulos:
