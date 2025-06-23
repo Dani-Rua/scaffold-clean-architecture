@@ -7,9 +7,22 @@ import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
 import reactor.core.publisher.Mono;
 
+/**
+ * Filtro web que agrega cabeceras de seguridad HTTP a todas las respuestas.
+ *
+ * <p>Incluye políticas de seguridad como Content-Security-Policy, Strict-Transport-Security,
+ * X-Content-Type-Options, entre otras, para proteger la aplicación frente a ataques comunes.</p>
+ */
 @Component
 public class SecurityHeadersConfig implements WebFilter {
 
+    /**
+     * Aplica las cabeceras de seguridad a la respuesta HTTP antes de continuar con la cadena de filtros.
+     *
+     * @param exchange El intercambio web actual
+     * @param chain La cadena de filtros web
+     * @return Mono que representa la continuación de la cadena de filtros
+     */
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
         HttpHeaders headers = exchange.getResponse().getHeaders();
