@@ -7,8 +7,16 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Pruebas unitarias para la clase {@link ObjectMapperConfig}.
+ *
+ * <p>Verifica que el bean de {@link ObjectMapper} se registre correctamente y sea una instancia de {@link ObjectMapperImp}.</p>
+ */
 class ObjectMapperConfigTest {
 
+    /**
+     * Verifica que el bean de ObjectMapper esté presente en el contexto y sea del tipo esperado.
+     */
     @Test
     void testObjectMapperBean() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ObjectMapperConfig.class);
