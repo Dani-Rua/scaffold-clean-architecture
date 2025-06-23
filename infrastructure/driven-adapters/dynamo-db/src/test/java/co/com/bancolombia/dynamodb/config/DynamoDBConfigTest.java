@@ -10,6 +10,11 @@ import software.amazon.awssdk.services.dynamodb.DynamoDbAsyncClient;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+/**
+ * Pruebas unitarias para la clase de configuración {@link DynamoDBConfig}.
+ *
+ * <p>Verifica la correcta creación de los beans de DynamoDB para los diferentes perfiles y el cliente mejorado.</p>
+ */
 @ExtendWith(MockitoExtension.class)
 class DynamoDBConfigTest {
 
@@ -21,6 +26,9 @@ class DynamoDBConfigTest {
 
     private final DynamoDBConfig dynamoDBConfig = new DynamoDBConfig();
 
+    /**
+     * Verifica que el bean de DynamoDB para entorno local se cree correctamente.
+     */
     @Test
     void testAmazonDynamoDB() {
 
@@ -32,6 +40,9 @@ class DynamoDBConfigTest {
         assertNotNull(result);
     }
 
+    /**
+     * Verifica que el bean de DynamoDB para ambientes dev/cer/pdn se cree correctamente.
+     */
     @Test
     void testAmazonDynamoDBAsync() {
 
@@ -42,7 +53,9 @@ class DynamoDBConfigTest {
         assertNotNull(result);
     }
 
-
+    /**
+     * Verifica que el bean del cliente mejorado de DynamoDB se cree correctamente.
+     */
     @Test
     void testGetDynamoDbEnhancedAsyncClient() {
         DynamoDbEnhancedAsyncClient result = dynamoDBConfig.getDynamoDbEnhancedAsyncClient(dynamoDbAsyncClient);
