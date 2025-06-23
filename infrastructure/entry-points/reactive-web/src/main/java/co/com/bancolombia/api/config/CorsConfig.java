@@ -10,9 +10,20 @@ import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Configuración de CORS para la API.
+ *
+ * <p>Define los orígenes, métodos y headers permitidos para las peticiones cross-origin.</p>
+ */
 @Configuration
 public class CorsConfig {
 
+    /**
+     * Crea y configura el filtro CORS para la aplicación.
+     *
+     * @param origins Lista de orígenes permitidos, separados por coma
+     * @return CorsWebFilter configurado
+     */
     @Bean
     CorsWebFilter corsWebFilter(@Value("${cors.allowed-origins}") String origins) {
         CorsConfiguration config = new CorsConfiguration();

@@ -41,8 +41,6 @@ public class GlobalExceptionHandler implements ErrorWebExceptionHandler {
         if (ex instanceof IllegalArgumentException) {
             return handleIllegalArgumentException(exchange, (IllegalArgumentException) ex);
         }
-
-        // Fallback para cualquier otra excepción no esperada
         return handleGenericException(exchange, ex);
     }
 
@@ -81,7 +79,6 @@ public class GlobalExceptionHandler implements ErrorWebExceptionHandler {
      * @return Un {@link Mono<Void>} que completa la respuesta.
      */
     private Mono<Void> handleGenericException(ServerWebExchange exchange, Throwable ex) {
-        // Imprimir el stack trace para depuración en la consola del servidor
         ex.printStackTrace();
 
         exchange.getResponse().setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
