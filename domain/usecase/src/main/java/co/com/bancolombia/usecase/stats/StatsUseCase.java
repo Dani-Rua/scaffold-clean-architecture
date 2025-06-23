@@ -9,13 +9,25 @@ import reactor.core.publisher.Mono;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-
+/**
+ * Caso de uso principal para el procesamiento de estadísticas de interacción de clientes.
+ *
+ * <p>Valida el hash MD5, asigna el timestamp, guarda la estadística en DynamoDB y publica el evento en RabbitMQ.</p>
+ */
 @RequiredArgsConstructor
 public class StatsUseCase {
 
     private final StatsRepository statsRepository;
     private final EventPublisherGateway eventPublisher;
 
+    /**
+     * Procesa y guarda una estadística si el hash es válido.
+     *
+     * <p>Valida el hash MD5, asigna el timestamp actual, guarda la estadística y publica el evento.</p>
+     *
+     * @param stats La estadística a procesar
+     * @return Mono que emite la estadística guardada o un error si el hash es inválido
+     */
     public Mono<Stats> saveStats(Stats stats) {
         if (!isValidHash(stats)) {
             return Mono.error(new IllegalArgumentException("Hash MD5 inválido"));
@@ -48,7 +60,6 @@ public class StatsUseCase {
      * @throws NoSuchAlgorithmException si el algoritmo MD5 no está disponible
      */
     private String generateMD5Hash(Stats stats) throws NoSuchAlgorithmException {
-        // Concatenar los campos en el orden especificado: 250,25,10,100,100,7,8
         String data = String.format("%d,%d,%d,%d,%d,%d,%d",
                 stats.getTotalContactoClientes(),
                 stats.getMotivoReclamo(),
@@ -67,9 +78,5 @@ public class StatsUseCase {
         }
 
         return sb.toString();
-    }
-
-    public Mono<Stats> findByKey(String timestamp) {
-        return statsRepository.findByKey(timestamp);
     }
 }
