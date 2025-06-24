@@ -29,14 +29,15 @@ public class StatsUseCase {
      * @return Mono que emite la estadística guardada o un error si el hash es inválido
      */
     public Mono<Stats> saveStats(Stats stats) {
-        if (!isValidHash(stats)) {
-            return Mono.error(new IllegalArgumentException("Hash MD5 inválido"));
-        }
-
-        stats.setTimestamp();
-        return statsRepository.saveStats(stats)
-                .flatMap(savedStats -> eventPublisher.publishEvent(savedStats)
-                        .thenReturn(savedStats));
+        return Mono.just(stats)
+                .filter(this::isValidHash)
+                .switchIfEmpty(Mono.error(new IllegalArgumentException("Hash MD5 inválido")))
+                .map(s -> {
+                    s.setTimestamp();
+                    return s;
+                })
+                .flatMap(statsRepository::saveStats)
+                .flatMap(savedStats -> eventPublisher.publishEvent(savedStats).thenReturn(savedStats));
     }
 
     /**
