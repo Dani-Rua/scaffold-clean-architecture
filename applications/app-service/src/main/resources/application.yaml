@@ -10,15 +10,15 @@ spring:
       enabled: true
       path: "/h2"
   profiles:
-    include: "local"
+    include: "rabbitmq"
   rabbitmq:
-    host: localhost
+    host: rabbitmq
     port: 5672
     username: guest
     password: guest
 aws:
   dynamodb:
-    endpoint: "http://localhost:8000"
+    endpoint: "http://dynamodb:8000"
   region: "us-east-1"
 app:
   rabbitmq:
