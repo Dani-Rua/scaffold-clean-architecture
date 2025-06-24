@@ -81,4 +81,11 @@ public class StatsDTO {
     @NotBlank(message = "hash no puede ser null o vacío")
     @Pattern(regexp = "^[a-f0-9]{32}$", message = "hash debe ser un MD5 válido")
     private String hash;
+
+    /**
+     * Timestamp del registro de la estadística.
+     * Representa la fecha y hora en que se guardó la estadística.
+     * Este campo es opcional en la petición, pero se incluirá en la respuesta.
+     */
+    private String timestamp;
 }
