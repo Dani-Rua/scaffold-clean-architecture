@@ -153,8 +153,3 @@ docker rmi <nombre_o_id_de_la_imagen>
 - Documenta tus clases y métodos con JavaDoc.
 - Usa commits atómicos y mensajes claros siguiendo Conventional Commits.
 - Mantén el código limpio y modular.
-
-
-
-
-
