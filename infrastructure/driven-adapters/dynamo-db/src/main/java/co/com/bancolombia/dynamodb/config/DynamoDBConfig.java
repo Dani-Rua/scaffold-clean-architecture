@@ -34,7 +34,6 @@ public class DynamoDBConfig {
      * @return Cliente asíncrono de DynamoDB para pruebas locales
      */
     @Bean
-    @Profile({"local"})
     public DynamoDbAsyncClient amazonDynamoDB(@Value("${aws.dynamodb.endpoint}") String endpoint,
                                               @Value("${aws.region}") String region,
                                               MetricPublisher publisher) {
